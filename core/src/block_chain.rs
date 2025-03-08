@@ -44,13 +44,22 @@ impl BlockChain {
 
     // 验证当前链没有被篡改
     fn block_chain_is_valid(&self) -> bool {
-        for i in 0..self.blocks.len() - 1 {
+        for i in 1..self.blocks.len() {
             let block = &self.blocks[i];
-            let pre_block = &self.blocks[i + 1];
+            let pre_block = &self.blocks[i - 1];
             if block.header.pre_hash != pre_block.hash {
                 return false;
             }
         }
         true
+    }
+}
+
+#[cfg(test)]
+mod tests {
+
+    #[test]
+    fn should_test() {
+        todo!()
     }
 }

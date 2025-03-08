@@ -77,3 +77,12 @@ impl Block {
         get_hash(data.as_bytes())
     }
 }
+
+#[cfg(test)]
+mod tests {
+
+    #[test]
+    fn should_test() {
+        todo!()
+    }
+}

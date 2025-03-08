@@ -19,7 +19,7 @@ impl CliHandler {
                 break;
             }
 
-            if data[0] == "add" {
+            if data[0] == "add" && data.len() == 2 {
                 println!("⛏️ 正在创建区块");
                 match blockchain.add_block(data[1].to_string(), db) {
                     Ok(_) => println!("💵 创建完成"),
