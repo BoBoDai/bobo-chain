@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 use crate::block::Block;
+use crate::Db;
 
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct BlockChain {
@@ -16,6 +17,7 @@ impl BlockChain {
         let new_block = Block::new_block(data, pre_block.hash.clone(), self.difficulty);
         if self.block_chain_is_valid() {
             self.blocks.push(new_block);
+            Db::save_chain(self);
             Ok(())
         } else {
             Err("valid failed".to_string())
@@ -23,16 +25,21 @@ impl BlockChain {
     }
 
     // 新建创世块，工作量难度为-1表示不需要工作量证明
-    pub fn new_genesis_block() -> Block {
+    fn new_genesis_block() -> Block {
         Block::new_block("Genesis block".to_string(), String::from(""), -1)
     }
 
     //新建链
     pub fn new_block_chain(difficulty: i32) -> BlockChain {
-        BlockChain {
+        if Db::is_chain_exist() {
+            return Db::load_chain();
+        }
+        let mut chain = BlockChain {
             blocks: vec![BlockChain::new_genesis_block()],
             difficulty,
-        }
+        };
+        Db::save_chain(&mut chain);
+        chain
     }
 
     // 验证当前链没有被篡改

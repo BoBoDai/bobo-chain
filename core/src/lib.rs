@@ -9,7 +9,7 @@ struct Db;
 
 impl Db {
 
-    pub fn exist() -> bool {
+    pub fn is_chain_exist() -> bool {
         fs::exists(FILE_NAME).unwrap()
     }
 
@@ -36,8 +36,8 @@ mod tests {
         // given
         let mut except = BlockChain::new_block_chain(1);
         Db::save_chain(&mut except);
-        let is_file_exist = fs::exists(FILE_NAME).unwrap();
         //when
+        let is_file_exist = Db::is_chain_exist();
         let result = Db::load_chain();
         //then
         assert!(is_file_exist);
