@@ -7,16 +7,14 @@ pub fn my_serialize<T: ?Sized>(value: &T) -> Vec<u8>
 where
     T: Serialize,
 {
-    let seialized = bincode::serialize(value).unwrap();
-    seialized
+    bincode::serialize(value).unwrap()
 }
 
 pub fn my_deserialize<'a, T>(bytes: &'a [u8]) -> T
 where
     T: Deserialize<'a>,
 {
-    let deserialized = bincode::deserialize(bytes).unwrap();
-    deserialized
+    bincode::deserialize(bytes).unwrap()
 }
 
 pub fn get_hash(value: &[u8]) -> String {
