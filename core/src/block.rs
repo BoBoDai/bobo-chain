@@ -1,10 +1,12 @@
 use std::fmt::Display;
 use chrono::prelude::*;
-use serde::Serialize;
-use utils::coder;
-use utils::coder::get_hash;
+use serde::{Deserialize, Serialize};
+use utils::{
+    coder,
+    coder::get_hash
+};
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct BlockHeader {
     pub time: i64,
     // 当前块数据唯一哈希
@@ -17,7 +19,7 @@ pub struct BlockHeader {
     nonce: u64,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Block {
     pub header: BlockHeader,
     pub hash: String,

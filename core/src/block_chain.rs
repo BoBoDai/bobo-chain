@@ -1,5 +1,7 @@
+use serde::{Deserialize, Serialize};
 use crate::block::Block;
 
+#[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct BlockChain {
     //链的载体
     pub blocks: Vec<Block>,
