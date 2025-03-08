@@ -1,3 +1,4 @@
+use std::fmt::Display;
 use chrono::prelude::*;
 use serde::Serialize;
 use utils::coder;
@@ -21,6 +22,12 @@ pub struct Block {
     pub header: BlockHeader,
     pub hash: String,
     pub data: String,
+}
+
+impl Display for BlockHeader {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{}{}", self.tx_hash, self.nonce)
+    }
 }
 
 impl Block {
@@ -64,10 +71,7 @@ impl Block {
     }
 
     fn calculate_hash(&self) -> String {
-        let date = Utc::now().timestamp().to_string();
-        let data = self.data.to_string();
-        let nance = self.header.nonce;
-        let data = date + data.as_str() + nance.to_string().as_str();
+        let data = self.header.to_string();
         get_hash(data.as_bytes())
     }
 }

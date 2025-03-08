@@ -1,5 +1,5 @@
-use std::io;
 use core::block_chain::BlockChain;
+use std::io;
 pub struct CliHandler;
 
 impl CliHandler {
@@ -19,8 +19,10 @@ impl CliHandler {
 
             if data[0] == "add" {
                 println!("⛏️ 正在创建区块");
-                blockchain.add_block(data[1].to_string());
-                println!("⛏️ 创建完成");
+                match blockchain.add_block(data[1].to_string()) {
+                    Ok(_) => println!("💵 创建完成"),
+                    Err(e) => println!("❌ 链被更改，无法新增加区块。"),
+                }
                 continue;
             }
 
