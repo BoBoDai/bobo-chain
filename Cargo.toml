@@ -2,5 +2,5 @@
 members = [
     "main",
     "core",
-    "utils"
-]
+    "utils",
+    "file_db"]
